@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+*.log
+.DS_Store
+.env*
+graphify-out/
+
+# Brand source originals (huge — 100MB+ PDFs/videos; GitHub rejects >100MB).
+# Web-optimized copies used by the site live in public/.
+assests/

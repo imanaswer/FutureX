@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #070b14;
+  --color-ink-2: #0c1424;
+  --color-ink-3: #131e36;
+  --color-paper: #0a1122;
+  --color-paper-2: #111d33;
+  --color-blue: #2068d8;
+  --color-blue-deep: #1550b0;
+  --color-cyan: #22c1f5;
+  --color-sky: #a8c6ff;
+  --color-sky-dim: #bccbe4;
+  --color-accent: #34c6f7;
+  --color-accent-deep: #7cdcfb;
+  --color-body: #f1f5ff;
+  --color-body-soft: #c2cee4;
+  --color-lite: #edf2ff;
+
+  --font-display: var(--font-bricolage), sans-serif;
+  --font-sans: var(--font-schibsted), sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+
+  --shadow-card: 0 0 0 1px rgba(143, 184, 255, 0.1), 0 24px 60px -28px rgba(0, 0, 0, 0.8);
+  --shadow-card-lg: 0 0 0 1px rgba(143, 184, 255, 0.16), 0 40px 90px -32px rgba(0, 0, 0, 0.9);
+
+  --animate-ticker: ticker 36s linear infinite;
+  --animate-orbit: orbit 24s linear infinite;
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-ink);
+  color: var(--color-lite);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Dark-surface selection */
+.dark-zone ::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+::selection {
+  background: var(--color-blue);
+  color: #fff;
+}
+
+/* Trajectory path draw (fallback: visible; JS animates when in view) */
+.traj-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+/* Atmospheric section glow — a soft orbital halo at the top of a content
+   band, in the "flight path / space" world. Replaces the old grid overlay. */
+.paper-grid {
+  background-image: radial-gradient(
+    ellipse 90% 60% at 50% -10%,
+    rgba(34, 111, 214, 0.14),
+    transparent 72%
+  );
+}
+
+/* Engineering-paper registration tick: the "stamp" on authored light cards */
+.paper-card {
+  position: relative;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .paper-card {
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .paper-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card-lg);
+  }
+}
+.paper-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 28px;
+  width: 34px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(90deg, var(--color-blue), var(--color-accent));
+}
+
+/* Mission-control scanline shimmer on telemetry strips */
+.telemetry {
+  position: relative;
+  overflow: hidden;
+}
+.telemetry::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(126, 178, 255, 0.08) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: telemetry-sweep 5s ease-in-out infinite;
+}
+@keyframes telemetry-sweep {
+  0%, 60% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Star field twinkle */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.9; }
+}
+
+/* Expensive-feeling buttons: a light sweeps across on hover. */
+.btn-sweep {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 75%
+  );
+  transform: translateX(-130%) skewX(-12deg);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-sweep:hover::after {
+  transform: translateX(130%) skewX(-12deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.dark-zone :focus-visible {
+  outline-color: var(--color-accent);
+}
