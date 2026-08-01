@@ -71,7 +71,7 @@ export default function Footer() {
               className="h-10 w-auto"
             />
             <p className="mt-5 max-w-xs text-[0.92rem] leading-relaxed text-sky-dim">
-              An initiative of G-TEC Education — making AI education accessible,
+              An initiative of G-TEC EDUCATION — making AI education accessible,
               practical, and career-focused for every learner.
             </p>
             <p className="mt-6 inline-flex items-center gap-2 font-mono text-[0.68rem] tracking-[0.16em] text-sky/70">
