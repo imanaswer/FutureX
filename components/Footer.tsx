@@ -33,57 +33,68 @@ function SocialIcon({ name }: { name: "instagram" | "linkedin" | "facebook" }) {
 
 export default function Footer() {
   return (
-    <footer className="dark-zone relative overflow-hidden bg-ink text-lite">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[70%] -translate-x-1/2 rounded-[100%] bg-blue/15 blur-3xl"
-      />
+    <footer className="dark-zone relative overflow-hidden bg-ink border-t border-sky/20 pt-16 md:pt-24 pb-8">
+      
+      {/* Background Micro-Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(34,193,245,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(34,193,245,0.02)_1px,transparent_1px)] bg-[size:60px_60px] mix-blend-overlay pointer-events-none z-0" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-5 pt-16 md:px-8 md:pt-20">
-        {/* CTA band */}
-        <div className="flex flex-col items-start justify-between gap-7 border-b border-sky/12 pb-10 md:pb-14 lg:flex-row lg:items-end">
+      {/* Giant brand wordmark — Absolute background behind everything */}
+      <div aria-hidden className="pointer-events-none absolute bottom-0 left-0 right-0 z-0 hidden select-none overflow-hidden sm:flex justify-center items-end opacity-60">
+        <p className="font-display translate-y-[0.2em] text-center text-[28vw] font-black leading-[0.72] tracking-tighter text-white/[0.03]">
+          Future<span className="text-accent/[0.04]">X</span>
+        </p>
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-[1920px] px-4 sm:px-8">
+        
+        {/* CTA band - Brutalist */}
+        <div className="flex flex-col items-start justify-between gap-8 border-b border-sky/20 pb-12 md:pb-16 lg:flex-row lg:items-end">
           <div>
-            <p className="font-mono text-[0.72rem] tracking-[0.22em] text-accent">
-              START YOUR ASCENT
-            </p>
-            <h2 className="font-display mt-4 max-w-xl text-balance text-3xl font-extrabold leading-[1.05] tracking-[-0.02em] text-white sm:text-4xl md:text-5xl">
-              Let&apos;s build the future — together.
+            <div className="mb-8 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-accent">
+              <span className="block h-2 w-2 bg-accent animate-pulse" />
+              SYSTEM SHUTDOWN SEQUENCE
+            </div>
+            <h2 className="font-display max-w-3xl text-balance text-4xl font-black leading-[0.9] tracking-tighter text-white sm:text-5xl md:text-7xl xl:text-[5.5rem]">
+              Let's build the future.
             </h2>
           </div>
           <Link
             href="/contact"
-            className="btn-sweep group inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-[1rem] font-bold text-ink transition hover:bg-accent-deep"
+            className="group relative inline-flex items-center gap-4 border border-accent rounded-full bg-accent/5 px-8 py-5 font-mono text-[10px] font-bold tracking-[0.3em] text-accent transition-all hover:bg-accent hover:text-ink backdrop-blur-md"
           >
-            Enquire now
-            <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+            <span className="block h-2 w-2 bg-accent group-hover:bg-ink" />
+            [ ENQUIRE NOW ]
           </Link>
         </div>
 
-        {/* Columns */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-11 md:grid-cols-[1.6fr_1fr_1fr] md:gap-10 md:py-14">
-          {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
+        {/* Columns - Clean Layout */}
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-12 my-20">
+          
+          {/* Brand & Socials Panel */}
+          <div className="col-span-1 md:col-span-6 relative group">
             <Image
               src="/img/logo-white.png"
               alt="FutureX — G-TEC AI Lab"
               width={180}
               height={50}
-              className="h-10 w-auto"
+              className="h-9 w-auto opacity-90"
             />
-            <p className="mt-5 max-w-xs text-[0.92rem] leading-relaxed text-sky-dim">
-              An initiative of G-TEC EDUCATION — making AI education accessible,
-              practical, and career-focused for every learner.
+            
+            <p className="mt-8 max-w-sm font-mono text-xs leading-relaxed text-sky-dim/70">
+              AN INITIATIVE OF G-TEC EDUCATION — MAKING AI EDUCATION ACCESSIBLE,
+              PRACTICAL, AND CAREER-FOCUSED FOR EVERY LEARNER.
             </p>
-            <p className="mt-6 inline-flex items-center gap-2 font-mono text-[0.68rem] tracking-[0.16em] text-sky/70">
+            
+            <div className="mt-8 flex items-center gap-4 border border-sky/20 rounded-full bg-ink-2/50 px-4 py-3 w-fit">
               <span className="relative flex h-2 w-2">
                 <span className="absolute h-full w-full animate-ping rounded-full bg-accent/50" />
                 <span className="relative h-2 w-2 rounded-full bg-accent" />
               </span>
-              MISSION STATUS · ASCENDING
-            </p>
+              <span className="font-mono text-[10px] tracking-[0.3em] text-accent font-bold">MISSION_STATUS: ASCENDING</span>
+            </div>
 
-            {/* Socials — emoji pills */}
-            <div className="mt-7 flex flex-wrap gap-2.5">
+            {/* Socials — Minimal HUD Icons */}
+            <div className="mt-12 flex items-center gap-4">
               {socialLinks.map((s) => (
                 <a
                   key={s.label}
@@ -91,49 +102,50 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="group inline-flex items-center gap-2.5 rounded-full border border-sky/20 bg-ink-2 px-4 py-2 text-[0.85rem] font-medium text-lite/85 transition hover:-translate-y-0.5 hover:border-accent hover:text-accent"
+                  className="group relative flex h-12 w-12 items-center justify-center border border-sky/10 rounded-full bg-ink-2/30 text-sky-dim transition-all hover:border-accent/50 hover:bg-accent/[0.05] hover:text-accent"
                 >
-                  <span className="text-sky transition-colors group-hover:text-accent">
+                  <span className="transition-transform group-hover:scale-110">
                     <SocialIcon name={s.icon} />
                   </span>
-                  {s.label}
                 </a>
               ))}
             </div>
           </div>
 
-          <FooterCol title="EXPLORE">
-            {nav.map((item) => (
-              <FooterLink key={item.href} href={item.href}>
-                {item.label}
-              </FooterLink>
-            ))}
-          </FooterCol>
+          {/* Navigation Panel */}
+          <div className="col-span-1 md:col-span-3 relative group">
+            <FooterCol title="SYS_EXPLORE">
+              {nav.map((item) => (
+                <FooterLink key={item.href} href={item.href}>
+                  {item.label.toUpperCase()}
+                </FooterLink>
+              ))}
+            </FooterCol>
+          </div>
 
-          <FooterCol title="PROGRAMS">
-            {courses.map((c) => (
-              <FooterLink key={c.slug} href={`/courses/${c.slug}`}>
-                <span className="font-mono text-[0.72rem] text-sky/70">L{c.level}</span>{" "}
-                {c.shortName}
-              </FooterLink>
-            ))}
-          </FooterCol>
+          {/* Programs Panel */}
+          <div className="col-span-1 md:col-span-3 relative group">
+            <FooterCol title="SYS_PROGRAMS">
+              {courses.map((c) => (
+                <FooterLink key={c.slug} href={`/courses/${c.slug}`}>
+                  <span className="text-accent opacity-50">L{c.level}_</span>{" "}
+                  {c.shortName.toUpperCase()}
+                </FooterLink>
+              ))}
+            </FooterCol>
+          </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col items-start justify-between gap-3 border-t border-sky/12 py-7 text-[0.82rem] text-sky-dim sm:flex-row sm:items-center">
-          <p>© 2026 FutureX AI Lab. All rights reserved.</p>
-          <p className="font-mono text-[0.72rem] tracking-[0.14em]">
-            AN INITIATIVE OF G-TEC EDUCATION
-          </p>
+        <div className="flex flex-col items-start justify-between gap-4 border-t border-sky/20 pt-8 font-mono text-[10px] tracking-[0.2em] text-sky-dim/50 sm:flex-row sm:items-center">
+          <p>© 2026 FUTUREX AI LAB. ALL RIGHTS RESERVED. // SYSTEM V1.0</p>
+          <div className="flex gap-2 items-center">
+            <span className="block h-1 w-1 bg-sky-dim/30" />
+            <span className="block h-1 w-1 bg-sky-dim/30" />
+            <span className="block h-1 w-3 bg-accent/50" />
+            <p className="ml-2 text-accent/70">AN INITIATIVE OF G-TEC EDUCATION</p>
+          </div>
         </div>
-      </div>
-
-      {/* Giant brand wordmark — desktop flourish */}
-      <div aria-hidden className="pointer-events-none relative z-0 hidden select-none overflow-hidden sm:block">
-        <p className="font-display translate-y-[0.16em] text-center text-[24vw] font-extrabold leading-[0.72] tracking-[-0.04em] text-white/[0.04]">
-          Future<span className="text-blue/[0.07]">X</span>
-        </p>
       </div>
     </footer>
   );
@@ -141,27 +153,33 @@ export default function Footer() {
 
 function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div>
-      <h3 className="font-mono text-[0.7rem] tracking-[0.18em] text-sky">{title}</h3>
-      <ul className="mt-5 space-y-3">{children}</ul>
+    <div className="flex flex-col h-full">
+      <div className="mb-6 flex items-center gap-2 border-b border-sky/20 pb-4">
+        <span className="block h-1.5 w-1.5 bg-accent/70" />
+        <h3 className="font-mono text-xs font-bold tracking-[0.3em] text-accent">{title}</h3>
+      </div>
+      <ul className="flex-1 flex flex-col">{children}</ul>
     </div>
   );
 }
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <li>
+    <li className="border-b border-sky/5 last:border-0">
       <Link
         href={href}
-        className="group inline-flex items-center gap-1.5 text-[0.92rem] text-lite/80 transition hover:text-accent"
+        className="group flex w-full items-center justify-between py-3 px-2 font-mono text-xs tracking-[0.2em] text-sky-dim/80 transition-all hover:bg-accent/[0.03] hover:text-accent"
       >
-        {children}
-        <span
-          aria-hidden
-          className="opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
-        >
-          →
-        </span>
+        <div className="flex items-center gap-4 transition-transform duration-300 group-hover:translate-x-2">
+          <span className="font-mono text-[10px] text-sky/30 transition-colors group-hover:text-accent">&gt;</span>
+          {children}
+        </div>
+        <div className="flex items-center gap-3 overflow-hidden">
+          <span className="h-[1px] w-0 bg-accent/50 transition-all duration-300 group-hover:w-8 hidden xl:block" />
+          <span className="font-mono text-[9px] tracking-[0.3em] text-accent opacity-0 transition-all duration-300 group-hover:opacity-100 hidden xl:block translate-x-2 group-hover:translate-x-0">
+            [EXEC]
+          </span>
+        </div>
       </Link>
     </li>
   );

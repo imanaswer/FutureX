@@ -1,33 +1,32 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import PageHero from "@/components/PageHero";
-import { Reveal } from "@/components/motion";
+import { Reveal, KineticHeading, ScrambleText } from "@/components/motion";
 import { Tilt } from "@/components/interactions";
 
 export const metadata: Metadata = {
   title: "VibeKids — Socratic AI Learning for Grades 3–12",
   description:
-    "VibeKids is an AI-powered interactive learning system for grades 3–12. Vibey, its Socratic AI engine, guides reasoning instead of giving answers. Aligned with CBSE Circular Acad-15/2026, NEP 2020, and NCF-SE 2023.",
+    "VibeKids is an AI-powered interactive learning system for grades 3–12. Vibey, its Socratic AI engine, guides reasoning instead of giving answers.",
 };
 
 const features = [
   {
-    title: "Cognitive diagnostics",
+    title: "COGNITIVE DIAGNOSTICS",
     body: "Vibey monitors reasoning habits in real time and pinpoints the foundational gap — often from an earlier grade — that's actually blocking today's concept.",
-    mono: "REAL-TIME COGNITIVE MAPPING",
+    mono: "REAL-TIME MAPPING",
   },
   {
-    title: "Multi-dashboard analytics",
+    title: "MULTI-DASHBOARD ANALYTICS",
     body: "Separate views for school leadership, teachers, and parents — performance, progress, and early-warning signals for every learner.",
     mono: "LEADERSHIP · TEACHER · PARENT",
   },
   {
-    title: "AI literacy training",
+    title: "AI LITERACY TRAINING",
     body: "Age-appropriate modules on spotting hallucinations, recognizing bias, and writing effective prompts — literacy for the AI era, not just screen time.",
-    mono: "HALLUCINATIONS · BIAS · PROMPTS",
+    mono: "HALLUCINATIONS · BIAS",
   },
   {
-    title: "Virtual STEM labs",
+    title: "VIRTUAL STEM LABS",
     body: "Digital simulations across physics, mathematics, financial literacy, and robotics — with connectivity to physical STEM kits in the classroom.",
     mono: "PHYSICS · MATH · ROBOTICS",
   },
@@ -35,116 +34,192 @@ const features = [
 
 const stakeholders = [
   {
-    who: "Schools",
-    points: ["CBSE compliance out of the box", "Differentiation that scales", "Performance analytics per class & cohort"],
+    who: "SCHOOLS",
+    points: ["CBSE compliance out of the box", "Differentiation that scales", "Performance analytics per class"],
   },
   {
-    who: "Teachers",
-    points: ["Automated grading", "Early learning-blocker identification", "Lesson-planning support"],
+    who: "TEACHERS",
+    points: ["Automated grading", "Early learning-blocker ID", "Lesson-planning support"],
   },
   {
-    who: "Students",
+    who: "STUDENTS",
     points: ["Personalized Socratic guidance", "Gamified progress", "Critical-thinking development"],
   },
   {
-    who: "Parents",
+    who: "PARENTS",
     points: ["Weekly progress reports", "Clear performance visibility", "Less homework supervision"],
   },
 ];
 
 export default function VibeKidsPage() {
   return (
-    <>
-      <PageHero
-        bg="/img/vibekids.png"
-        meta={["Grades 3–12", "CBSE Acad-15/2026", "NEP 2020 · NCF-SE 2023", "Socratic AI engine"]}
-        kicker="VIBEKIDS · GRADES 3–12"
-        title="The AI tutor that asks — never tells."
-        lede="VibeKids is an AI-powered interactive learning system that integrates with school curricula, textbooks, and STEM/robotics kits. At its heart is Vibey, a Socratic AI engine built to guide reasoning step by step instead of handing over answers."
-      >
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link
-            href="/contact"
-            className="rounded-full bg-accent btn-sweep px-7 py-3.5 text-[0.95rem] font-bold text-ink transition hover:bg-accent-deep"
-          >
-            Book a school demo
-          </Link>
+    <main className="min-h-screen bg-ink text-white pt-[100px] overflow-hidden selection:bg-accent selection:text-ink">
+      
+      {/* HUD HEADER */}
+      <section className="relative w-full border-b border-sky/20 px-5 pb-20 pt-10 md:pt-20">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div className="md:col-span-8">
+              <Reveal>
+                <div className="flex items-center gap-4 mb-8">
+                  <span className="h-[1px] w-12 bg-accent/80" />
+                  <p className="font-mono text-xs tracking-[0.3em] text-accent">
+                    <ScrambleText text="SYS.VIBEKIDS // ACTIVE" />
+                  </p>
+                </div>
+              </Reveal>
+              <KineticHeading 
+                as="h1" 
+                text="THE AI TUTOR THAT ASKS — NEVER TELLS."
+                className="font-display text-5xl md:text-7xl xl:text-8xl font-black uppercase leading-[0.85] tracking-tight"
+              />
+              <Reveal delay={0.2} className="mt-10 max-w-xl">
+                <p className="text-sky-dim text-lg leading-relaxed font-mono text-sm">
+                  VibeKids is an AI-powered interactive learning system that integrates with school curricula, textbooks, and STEM kits. At its heart is Vibey, a Socratic AI engine built to guide reasoning step by step instead of handing over answers.
+                </p>
+              </Reveal>
+              
+              <Reveal delay={0.3} className="mt-10">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-4 border border-accent rounded-full bg-accent/10 px-8 py-4 font-mono text-xs font-bold tracking-[0.2em] text-accent transition-all hover:bg-accent hover:text-ink uppercase group"
+                >
+                  Book a School Demo
+                  <span className="text-lg leading-none transform group-hover:translate-x-1 transition-transform">→</span>
+                </Link>
+              </Reveal>
+            </div>
+            
+            <div className="md:col-span-4 flex flex-col justify-end border-l border-sky/20 pl-8 hidden md:flex">
+                <div className="space-y-8 font-mono text-xs text-sky-dim">
+                    <Reveal delay={0.3}>
+                        <p className="tracking-[0.2em]">[ TARGET.01 ] <br/> <span className="text-white text-xl font-bold tracking-normal">GRADES 3–12</span></p>
+                    </Reveal>
+                    <Reveal delay={0.4}>
+                        <p className="tracking-[0.2em]">[ COMPLIANCE ] <br/> <span className="text-white text-xl font-bold tracking-normal">CBSE ACAD-15/2026</span></p>
+                    </Reveal>
+                    <Reveal delay={0.5}>
+                        <p className="tracking-[0.2em]">[ FRAMEWORK ] <br/> <span className="text-white text-xl font-bold tracking-normal">NEP 2020 & NCF-SE 2023</span></p>
+                    </Reveal>
+                </div>
+            </div>
+          </div>
         </div>
-      </PageHero>
+      </section>
 
-      {/* Why Socratic */}
-      <section className="paper-grid bg-paper py-16 md:py-20 xl:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-2">
+      {/* SOCRATIC ENGINE TERMINAL */}
+      <section className="relative w-full border-b border-sky/20 py-24">
+        {/* Background grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
+        
+        <div className="mx-auto grid max-w-7xl items-center gap-16 px-5 lg:grid-cols-2 relative z-10">
           <Reveal>
-            <p className="font-mono text-[0.72rem] tracking-[0.22em] text-sky">
-              THE VIBEY DIFFERENCE
-            </p>
-            <h2 className="font-display mt-4 text-balance text-4xl font-extrabold tracking-[-0.02em] text-body md:text-5xl xl:text-6xl">
-              Answer machines create copy-paste learners.
-            </h2>
-            <p className="mt-6 text-[1.02rem] leading-relaxed text-body-soft">
-              Most AI tutors hand students the solution — and short-circuit the
-              learning. Vibey is built around one constraint: it never gives the
-              direct answer. It asks the next-smallest question, so the student
-              takes the step themselves.
-            </p>
-            <p className="mt-4 text-[1.02rem] leading-relaxed text-body-soft">
-              Behind the conversation, real-time cognitive mapping tracks how
-              each child reasons — building a live map of strengths, gaps, and
-              exactly what to close next.
-            </p>
+             <div className="flex items-center gap-4 mb-6">
+                <span className="h-[1px] w-12 bg-accent/50" />
+                <p className="font-mono text-xs tracking-[0.3em] text-accent">
+                  <ScrambleText text="THE VIBEY ENGINE" />
+                </p>
+             </div>
+             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-[0.9] tracking-tight text-white">
+               ANSWER MACHINES CREATE COPY-PASTE LEARNERS.
+             </h2>
+             <div className="mt-8 space-y-6 font-mono text-sm text-sky-dim leading-relaxed border-l-2 border-accent/50 pl-6">
+               <p>
+                 Most AI tutors hand students the solution — and short-circuit the learning. Vibey is built around one constraint: it never gives the direct answer. It asks the next-smallest question, so the student takes the step themselves.
+               </p>
+               <p>
+                 Behind the conversation, real-time cognitive mapping tracks how each child reasons — building a live map of strengths, gaps, and exactly what to close next.
+               </p>
+             </div>
           </Reveal>
+          
           <Reveal delay={0.15}>
-            <div className="rounded-2xl bg-paper-2 p-7 shadow-card-lg">
-              <p className="border-b border-body/10 pb-3 font-mono text-[0.65rem] tracking-[0.18em] text-cyan">
-                SAMPLE SESSION · CLASS 6 MATHS
-              </p>
-              <div className="mt-4 space-y-4 text-[0.93rem] leading-relaxed">
-                <p className="rounded-xl rounded-bl-sm bg-paper px-4 py-3 text-body">
-                  I don't get how to find the area of a triangle.
-                </p>
-                <p className="ml-8 rounded-xl rounded-br-sm bg-blue/10 px-4 py-3 text-cyan">
-                  Let's start somewhere you know. What's the area of a rectangle
-                  that's 6 cm by 4 cm?
-                </p>
-                <p className="rounded-xl rounded-bl-sm bg-paper px-4 py-3 text-body">
-                  24 cm²!
-                </p>
-                <p className="ml-8 rounded-xl rounded-br-sm bg-blue/10 px-4 py-3 text-cyan">
-                  Now imagine cutting that rectangle corner-to-corner. What do
-                  you get — and what happened to the area?
-                </p>
-              </div>
-              <p className="mt-4 font-mono text-[0.6rem] tracking-[0.14em] text-body-soft">
-                ILLUSTRATIVE DIALOGUE · COGNITIVE MAP: RECTANGLES ✓ → TRIANGLES IN PROGRESS
-              </p>
+            {/* TERMINAL UI */}
+            <div className="group relative border border-sky/30 rounded-2xl overflow-hidden bg-ink/80 backdrop-blur p-1 shadow-[0_0_30px_rgba(34,193,245,0.05)] hover:shadow-[0_0_40px_rgba(34,193,245,0.15)] transition-shadow">
+               {/* Header */}
+               <div className="flex items-center justify-between border-b border-sky/20 bg-sky/5 px-4 py-3">
+                 <p className="font-mono text-[0.65rem] tracking-[0.2em] text-accent">SESSION.LOG // CLASS_6_MATHS</p>
+                 <div className="flex gap-2">
+                   <div className="h-2 w-2 rounded-full border border-sky/40" />
+                   <div className="h-2 w-2 rounded-full border border-sky/40" />
+                   <div className="h-2 w-2 rounded-full border border-accent bg-accent/20" />
+                 </div>
+               </div>
+               {/* Body */}
+               <div className="p-6 font-mono text-[0.85rem] leading-relaxed space-y-6">
+                 <div>
+                   <p className="text-sky-dim/50 mb-1 text-[0.65rem] tracking-widest">USER_INPUT</p>
+                   <p className="text-white border-l-2 border-sky/30 pl-4">
+                     {">"} I don't get how to find the area of a triangle.
+                   </p>
+                 </div>
+                 
+                 <div>
+                   <p className="text-accent mb-1 text-[0.65rem] tracking-widest">VIBEY_AI</p>
+                   <p className="text-sky border-l-2 border-accent pl-4">
+                     Let's start somewhere you know. What's the area of a rectangle that's 6 cm by 4 cm?
+                   </p>
+                 </div>
+
+                 <div>
+                   <p className="text-sky-dim/50 mb-1 text-[0.65rem] tracking-widest">USER_INPUT</p>
+                   <p className="text-white border-l-2 border-sky/30 pl-4">
+                     {">"} 24 cm²!
+                   </p>
+                 </div>
+
+                 <div>
+                   <p className="text-accent mb-1 text-[0.65rem] tracking-widest">VIBEY_AI</p>
+                   <p className="text-sky border-l-2 border-accent pl-4 relative">
+                     Now imagine cutting that rectangle corner-to-corner. What do you get — and what happened to the area?
+                     <span className="absolute -right-2 top-0 h-full w-[2px] bg-accent animate-pulse" />
+                   </p>
+                 </div>
+               </div>
+               
+               {/* Footer Status */}
+               <div className="border-t border-sky/20 bg-sky/5 px-4 py-2 font-mono text-[0.6rem] tracking-[0.15em] text-sky-dim flex justify-between">
+                 <span>COGNITIVE_MAP: ACTIVE</span>
+                 <span className="text-accent">RECTANGLES ✓ → TRIANGLES [ IN PROGRESS ]</span>
+               </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="dark-zone bg-ink py-16 md:py-20 xl:py-24">
+      {/* SYSTEM CAPABILITIES */}
+      <section className="relative w-full border-b border-sky/20 py-24">
         <div className="mx-auto max-w-7xl px-5">
-          <Reveal>
-            <p className="font-mono text-[0.72rem] tracking-[0.22em] text-accent">
-              SYSTEM CAPABILITIES
-            </p>
-            <h2 className="font-display mt-4 max-w-2xl text-balance text-4xl font-extrabold tracking-[-0.02em] text-white md:text-5xl xl:text-6xl">
-              Built for the whole classroom.
-            </h2>
+          <Reveal className="mb-16">
+            <div className="flex items-center gap-4 mb-6">
+              <span className="h-[1px] w-12 bg-accent/50" />
+              <p className="font-mono text-xs tracking-[0.3em] text-accent">
+                <ScrambleText text="SYS // CAPABILITIES" />
+              </p>
+            </div>
+            <KineticHeading 
+              as="h2" 
+              text="BUILT FOR THE WHOLE CLASSROOM."
+              className="font-display text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-[0.9] tracking-tight"
+            />
           </Reveal>
-          <div className="mt-14 grid gap-6 sm:grid-cols-2">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {features.map((f, i) => (
               <Reveal key={f.title} delay={(i % 2) * 0.12}>
-                <Tilt className="h-full rounded-2xl" max={6}>
-                  <article className="h-full rounded-2xl border border-sky/15 bg-ink-2 p-7 transition duration-300 hover:border-accent/40">
-                    <p className="font-mono text-[0.62rem] tracking-[0.16em] text-sky">{f.mono}</p>
-                    <h3 className="font-display mt-3 text-[1.25rem] font-bold text-white">
+                <Tilt className="h-full" max={5}>
+                  <div className="group relative h-full border border-sky/20 rounded-2xl overflow-hidden bg-ink/50 p-8 md:p-10 transition-colors hover:border-accent/40 hover:bg-sky/5">
+                    
+                    <p className="font-mono text-[0.65rem] tracking-[0.2em] text-accent/80 mb-4 group-hover:text-accent transition-colors">
+                      [ {f.mono} ]
+                    </p>
+                    <h3 className="font-display text-2xl font-bold uppercase text-white mb-4 group-hover:text-accent transition-colors">
                       {f.title}
                     </h3>
-                    <p className="mt-3 text-[0.95rem] leading-relaxed text-sky-dim">{f.body}</p>
-                  </article>
+                    <p className="font-mono text-[0.85rem] leading-relaxed text-sky-dim">
+                      {f.body}
+                    </p>
+                  </div>
                 </Tilt>
               </Reveal>
             ))}
@@ -152,56 +227,56 @@ export default function VibeKidsPage() {
         </div>
       </section>
 
-      {/* Stakeholders */}
-      <section className="bg-paper py-16 md:py-20 xl:py-24">
-        <div className="mx-auto max-w-7xl px-5">
-          <Reveal>
-            <p className="font-mono text-[0.72rem] tracking-[0.22em] text-sky">
-              ONE PLATFORM, FOUR WINS
-            </p>
-            <h2 className="font-display mt-4 max-w-2xl text-balance text-4xl font-extrabold tracking-[-0.02em] text-body md:text-5xl xl:text-6xl">
-              Everyone sees the progress.
-            </h2>
-          </Reveal>
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {stakeholders.map((s, i) => (
-              <Reveal key={s.who} delay={i * 0.08}>
-                <article className="paper-card h-full rounded-2xl bg-paper-2 p-6 shadow-card">
-                  <h3 className="font-display text-[1.1rem] font-bold text-body">{s.who}</h3>
-                  <ul className="mt-4 space-y-2.5">
-                    {s.points.map((p) => (
-                      <li key={p} className="flex gap-2.5 text-[0.88rem] leading-relaxed text-body-soft">
-                        <span aria-hidden className="mt-[2px] text-accent-deep">✦</span>
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                </article>
+      {/* ONE PLATFORM, FOUR WINS */}
+      <section className="relative w-full border-b border-sky/20">
+        <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x lg:divide-x divide-sky/20">
+          {stakeholders.map((s, i) => (
+            <div key={s.who} className="p-10 hover:bg-white/[0.02] transition-colors group relative">
+              <Reveal delay={i * 0.1}>
+                <p className="font-mono text-[0.65rem] tracking-[0.3em] text-accent/70 mb-6 group-hover:text-accent transition-colors">
+                  [ {String(i + 1).padStart(2, "0")} ]
+                </p>
+                <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-white mb-6 group-hover:text-accent transition-colors">
+                  {s.who}
+                </h3>
+                <ul className="space-y-4">
+                  {s.points.map((p) => (
+                    <li key={p} className="flex gap-3 text-[0.8rem] leading-relaxed text-sky-dim font-mono">
+                      <span aria-hidden className="text-accent/50 group-hover:text-accent transition-colors mt-[1px]">›</span>
+                      {p}
+                    </li>
+                  ))}
+                </ul>
               </Reveal>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="dark-zone bg-ink py-20 text-center md:py-24">
+      {/* FOOTER CTA */}
+      <section className="relative w-full py-24 text-center">
         <div className="mx-auto max-w-2xl px-5">
           <Reveal>
-            <h2 className="font-display text-balance text-3xl font-extrabold tracking-[-0.02em] text-white md:text-5xl xl:text-6xl">
-              Bring VibeKids to your school.
+            <p className="font-mono text-xs tracking-[0.3em] text-accent mb-6">
+              <ScrambleText text="QUERY // INTEGRATION" />
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-black uppercase tracking-tight text-white mb-6">
+              BRING VIBEKIDS TO YOUR SCHOOL.
             </h2>
-            <p className="mt-5 text-[1.02rem] leading-relaxed text-sky-dim">
-              We'll walk your leadership team through the platform, dashboards,
-              and CBSE alignment — with your own textbooks and curriculum.
+            <p className="font-mono text-sm text-sky-dim leading-relaxed mb-10">
+              We'll walk your leadership team through the platform, dashboards, and CBSE alignment — with your own textbooks and curriculum.
             </p>
             <Link
-              href="/contact"
-              className="mt-8 inline-block rounded-full bg-accent btn-sweep px-8 py-4 font-bold text-ink shadow-[0_8px_30px_-8px_rgba(34,193,245,0.55)] transition hover:bg-accent-deep"
-            >
-              Book a demo
+               href="/contact"
+               className="inline-flex items-center justify-center gap-4 border border-accent rounded-full bg-accent/10 px-10 py-5 font-mono text-xs font-bold tracking-[0.2em] text-accent transition-all hover:bg-accent hover:text-ink uppercase group shadow-[0_0_20px_rgba(34,193,245,0.2)] hover:shadow-[0_0_30px_rgba(34,193,245,0.4)]"
+             >
+               Book a Demo
+               <span className="text-lg leading-none transform group-hover:translate-x-1 transition-transform">→</span>
             </Link>
           </Reveal>
         </div>
       </section>
-    </>
+
+    </main>
   );
 }

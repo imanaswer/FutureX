@@ -16,31 +16,32 @@ export function KineticHeading({
 }: {
   text: string;
   className?: string;
-  as?: "h1" | "h2" | "h3";
+  as?: any;
   delay?: number;
   onMount?: boolean;
 }) {
   const reduce = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "0px" });
+
   if (reduce) {
     return <Tag className={className}>{text}</Tag>;
   }
   const words = text.split(" ");
-  const reveal = onMount
-    ? { animate: { y: "0%" } }
-    : { whileInView: { y: "0%" }, viewport: { once: true, margin: "-8%" } as const };
+  
   return (
-    <Tag className={className}>
+    <Tag ref={ref} className={className}>
       {words.map((w, i) => (
         <span key={i} className="inline-block overflow-hidden pb-[0.14em] -mb-[0.14em] align-bottom">
           <motion.span
             className="inline-block"
             initial={{ y: "116%" }}
-            {...reveal}
+            animate={onMount || isInView ? { y: "0%" } : { y: "116%" }}
             transition={{ duration: 0.85, delay: delay + i * 0.055, ease: EASE }}
           >
             {w}
           </motion.span>
-          {i < words.length - 1 ? " " : ""}
+          {i < words.length - 1 ? "\u00A0" : ""}
         </span>
       ))}
     </Tag>
@@ -64,7 +65,7 @@ export function Reveal({
       className={className}
       initial={reduce ? false : { opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "0px" }}
       transition={{ duration: 0.8, delay, ease: EASE }}
     >
       {children}
@@ -105,6 +106,62 @@ export function Counter({
     <span ref={ref} className={className}>
       {value}
       {suffix}
+    </span>
+  );
+}
+
+/* Terminal Scramble Decode Effect */
+export function ScrambleText({
+  text,
+  className,
+  delay = 0,
+}: {
+  text: string;
+  className?: string;
+  delay?: number;
+}) {
+  const [displayText, setDisplayText] = useState("");
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "0px" });
+  const reduce = useReducedMotion();
+
+  useEffect(() => {
+    if (reduce) {
+      setDisplayText(text);
+      return;
+    }
+    if (!isInView) return;
+    
+    const timeout = setTimeout(() => {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+      let iterations = 0;
+      const interval = setInterval(() => {
+        setDisplayText(
+          text
+            .split("")
+            .map((letter, index) => {
+              if (index < iterations) return text[index];
+              if (text[index] === " ") return " ";
+              return chars[Math.floor(Math.random() * chars.length)];
+            })
+            .join("")
+        );
+
+        if (iterations >= text.length) {
+          clearInterval(interval);
+          setDisplayText(text);
+        }
+        iterations += 1 / 2;
+      }, 30);
+      return () => clearInterval(interval);
+    }, delay * 1000);
+
+    return () => clearTimeout(timeout);
+  }, [isInView, text, delay, reduce]);
+
+  return (
+    <span ref={ref} className={className}>
+      {displayText || text.replace(/./g, "\u00A0")}
     </span>
   );
 }
