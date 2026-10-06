@@ -1,138 +1,101 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
 import { courses } from "@/lib/data";
-import { Reveal, KineticHeading } from "@/components/motion";
+import { Reveal, KineticHeading, ScrambleText } from "@/components/motion";
 import Atmosphere from "@/components/Atmosphere";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-
-/* ponytail: desktop draws one shared SVG ascent; mobile falls back to a
-   vertical rail — same data, no duplicated concept. */
 export default function Trajectory() {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 0.75", "end 0.65"],
-  });
-  const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
   return (
-    <section className="dark-zone relative overflow-hidden bg-ink py-16 md:py-20 xl:py-24" ref={ref}>
-      <Atmosphere src="/img/ascent-trail.png" opacity={0.55} from="-6%" to="10%" />
-      <div className="relative mx-auto max-w-7xl px-5">
-        <Reveal>
-          <p className="font-mono text-[0.72rem] tracking-[0.22em] text-accent">
-            THE CERTIFICATION LADDER
-          </p>
-        </Reveal>
-        <KineticHeading
-          text="Four levels. One trajectory."
-          className="font-display mt-4 flex max-w-2xl flex-wrap text-balance text-4xl font-extrabold tracking-[-0.02em] text-white md:text-5xl xl:text-6xl"
-        />
-        <Reveal delay={0.2}>
-          <p className="mt-5 max-w-xl text-[1.05rem] leading-relaxed text-sky-dim">
-            Every program hands off to the next — each level maps to job roles
-            hiring right now.
-          </p>
-        </Reveal>
+    <section className="relative overflow-hidden bg-ink py-32 md:py-48 border-t border-sky/10">
+      <Atmosphere opacity={0.1} />
+      
+      {/* Background Micro-Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(34,193,245,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(34,193,245,0.02)_1px,transparent_1px)] bg-[size:20px_20px] mix-blend-overlay pointer-events-none" />
 
-        {/* Desktop ascent */}
-        <div className="relative mt-16 hidden md:block">
-          {/* Stretched to the container so the path meets each level card's
-              accent marker: card tops sit at ~mt-64/44/24/0 → the curve passes
-              through each column's marker corner. */}
-          <svg
-            viewBox="0 0 1000 420"
-            preserveAspectRatio="none"
-            className="absolute inset-0 h-full w-full"
-            aria-hidden
-            fill="none"
-          >
-            <path
-              d="M -10 300 C 60 280, 130 232, 197 206 C 280 186, 380 172, 455 152 C 540 130, 630 117, 710 98 C 790 80, 900 52, 968 33"
-              stroke="rgba(126,178,255,0.15)"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <motion.path
-              d="M -10 300 C 60 280, 130 232, 197 206 C 280 186, 380 172, 455 152 C 540 130, 630 117, 710 98 C 790 80, 900 52, 968 33"
-              stroke="url(#traj)"
-              strokeWidth="3"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-              style={reduce ? undefined : { pathLength }}
-            />
-            <defs>
-              <linearGradient id="traj" x1="0" y1="420" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#2068d8" />
-                <stop offset="1" stopColor="#22c1f5" />
-              </linearGradient>
-            </defs>
-          </svg>
-
-          <div className="relative grid grid-cols-4 gap-5 pt-6">
-            {[0, 1, 2, 3].map((idx) => {
-              const levelCourses = courses.filter((c) => c.level === idx + 1);
-              const offsets = ["mt-64", "mt-44", "mt-24", "mt-0"];
-              return (
-                <motion.div
-                  key={idx}
-                  initial={reduce ? false : { opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.7, delay: idx * 0.15, ease: EASE }}
-                  className={offsets[idx]}
-                >
-                  <LevelCard level={idx + 1} levelCourses={levelCourses} />
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Mobile rail */}
-        <div className="relative mt-12 space-y-6 border-l-[1px] border-sky/20 pl-6 md:hidden">
-          {[1, 2, 3, 4].map((lvl) => (
-            <Reveal key={lvl}>
-              <LevelCard level={lvl} levelCourses={courses.filter((c) => c.level === lvl)} />
+      <div className="relative mx-auto max-w-[1920px] px-4 sm:px-8">
+        
+        {/* Header Block */}
+        <div className="mb-24">
+          <div>
+            <Reveal>
+              <div className="mb-12 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-accent">
+                <span className="block h-2 w-2 bg-accent animate-pulse" />
+                <ScrambleText text="THE CERTIFICATION LADDER" />
+              </div>
             </Reveal>
-          ))}
+            <KineticHeading
+              as="h2"
+              text="Four levels. One trajectory."
+              className="font-display mt-4 max-w-2xl text-4xl font-black tracking-tighter text-white md:text-6xl xl:text-7xl leading-[0.9]"
+            />
+          </div>
+          <Reveal delay={0.1}>
+            <p className="mt-6 max-w-xl font-mono text-[12px] leading-relaxed text-sky-dim/70">
+              EVERY PROGRAM HANDS OFF TO THE NEXT. EACH LEVEL MAPS DIRECTLY TO JOB ROLES ACTIVELY HIRING IN THE AI SECTOR.
+            </p>
+          </Reveal>
         </div>
+
+        {/* The Accordion Panels (Desktop) / Stack (Mobile) */}
+        <div className="flex flex-col md:flex-row h-auto md:h-[70vh] min-h-[500px] border border-sky/10 rounded-2xl overflow-hidden bg-ink-2/30">
+          {[1, 2, 3, 4].map((level) => {
+            const levelCourses = courses.filter((c) => c.level === level);
+            return (
+              <div 
+                key={level}
+                className="group relative flex-1 border-b md:border-b-0 md:border-r border-sky/10 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] hover:flex-[2] overflow-hidden bg-ink"
+              >
+                {/* Background Hover State */}
+                <div className="absolute inset-0 bg-accent/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                
+                {/* Massive Level Number Background */}
+                <div className="absolute -bottom-10 -right-10 font-display text-[15rem] font-black leading-none text-white/[0.02] transition-colors duration-500 group-hover:text-accent/[0.05] pointer-events-none">
+                  {level}
+                </div>
+
+                <div className="relative flex h-full flex-col p-6 md:p-8">
+                  {/* Top Bar */}
+                  <div className="flex items-center justify-between border-b border-sky/10 pb-4">
+                    <span className="font-mono text-[10px] tracking-[0.3em] text-accent font-bold">
+                      LEVEL // 0{level}
+                    </span>
+                    <div className="h-2 w-2 border border-accent transition-all duration-300 group-hover:bg-accent" />
+                  </div>
+
+                  {/* Course Content */}
+                  <div className="mt-12 flex-1 flex flex-col gap-10 opacity-70 transition-opacity duration-500 group-hover:opacity-100">
+                    {levelCourses.map((c) => (
+                      <Link key={c.slug} href={`/courses/${c.slug}`} className="flex flex-col group/link">
+                        <h3 className="font-display text-3xl md:text-4xl font-bold leading-snug text-white transition-colors group-hover/link:text-accent">
+                          {c.title}
+                        </h3>
+                        {/* 
+                          We use line-clamp-3 so when the panel is squished it doesn't overflow wildly,
+                          but when hovered and expanded, there is plenty of room to read.
+                        */}
+                        <p className="mt-4 font-mono text-[11px] leading-relaxed text-sky-dim line-clamp-3 md:line-clamp-none md:max-w-md">
+                          {c.short}
+                        </p>
+                        
+                        <div className="mt-6 flex items-center justify-between border-t border-white/5 pt-4">
+                          <span className="font-mono text-[9px] tracking-[0.2em] text-sky">
+                            {c.code} · {c.syllabus.length} MODULES
+                          </span>
+                          <span className="font-mono text-[9px] tracking-[0.2em] text-accent opacity-0 transition-all duration-300 transform translate-x-4 group-hover/link:opacity-100 group-hover/link:translate-x-0">
+                            [ ACCESS ]
+                          </span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
-  );
-}
-
-function LevelCard({
-  level,
-  levelCourses,
-}: {
-  level: number;
-  levelCourses: typeof courses;
-}) {
-  return (
-    <div className="group rounded-2xl border border-sky/15 bg-ink-2 p-5 transition duration-300 hover:border-accent/40 hover:bg-ink-3">
-      <div className="flex items-center justify-between">
-        <span className="font-mono text-[0.7rem] tracking-[0.16em] text-accent">
-          LEVEL {level}
-        </span>
-        <span className="h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_12px_2px_rgba(34,193,245,0.5)]" />
-      </div>
-      {levelCourses.map((c) => (
-        <Link key={c.slug} href={`/courses/${c.slug}`} className="mt-3 block">
-          <h3 className="font-display text-[1.05rem] font-bold leading-snug text-white transition group-hover:text-accent">
-            {c.title}
-          </h3>
-          <p className="mt-2 text-[0.85rem] leading-relaxed text-sky-dim">{c.short}</p>
-          <p className="mt-3 font-mono text-[0.65rem] tracking-[0.14em] text-sky">
-            {c.code} · {c.syllabus.length} MODULES
-          </p>
-        </Link>
-      ))}
-    </div>
   );
 }

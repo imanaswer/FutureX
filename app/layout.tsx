@@ -19,6 +19,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import Preloader from "@/components/Preloader";
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${bricolage.variable} ${schibsted.variable} ${jetbrains.variable}`}>
+        <Preloader />
         <SmoothScroll>
           <Nav />
           <main id="main">{children}</main>

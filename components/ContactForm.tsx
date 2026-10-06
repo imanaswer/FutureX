@@ -3,15 +3,12 @@
 import { useState } from "react";
 import { socials } from "@/lib/data";
 
-/* Set this to the lab's enquiry inbox to switch the form to direct email
-   submission. While empty, the form composes the enquiry as a ready-to-send
-   message the visitor delivers via an official social channel. */
 const ENQUIRY_EMAIL = "";
 
-const interests = ["A course", "VibeKids for my school", "Partnership", "Something else"];
+const interests = ["COURSE ENQUIRY", "VIBEKIDS DEMO", "PARTNERSHIP", "OTHER LOG"];
 
 const inputCls =
-  "mt-2 w-full rounded-xl border border-body/15 bg-paper px-4 py-3 text-[0.95rem] text-body placeholder:text-body-soft/70 focus:border-blue";
+  "mt-2 w-full border border-sky/20 rounded-xl bg-ink px-4 py-3 font-mono text-[0.85rem] text-white placeholder:text-sky-dim/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/50 transition-colors";
 
 export default function ContactForm() {
   const [interest, setInterest] = useState(interests[0]);
@@ -24,10 +21,10 @@ export default function ContactForm() {
     const name = String(data.get("name") ?? "");
     const email = String(data.get("email") ?? "");
     const message = String(data.get("message") ?? "");
-    const text = `Enquiry: ${interest}\n\n${message}\n\n— ${name} (${email})`;
+    const text = `SYS_LOG: ${interest}\n\n${message}\n\n— ${name} (${email})`;
 
     if (ENQUIRY_EMAIL) {
-      const subject = encodeURIComponent(`Enquiry: ${interest} — ${name}`);
+      const subject = encodeURIComponent(`SYS_LOG: ${interest} — ${name}`);
       const body = encodeURIComponent(`${message}\n\nFrom: ${name} <${email}>`);
       window.location.href = `mailto:${ENQUIRY_EMAIL}?subject=${subject}&body=${body}`;
     }
@@ -41,49 +38,50 @@ export default function ContactForm() {
       await navigator.clipboard.writeText(composed);
       setCopied(true);
     } catch {
-      /* clipboard unavailable — visitor can select the text manually */
+      /* clipboard unavailable */
     }
   }
 
   if (composed) {
     return (
-      <div className="rounded-2xl bg-paper-2 p-8 shadow-card md:p-10" role="status">
-        <p className="font-mono text-[0.65rem] tracking-[0.18em] text-cyan">
-          TRANSMISSION READY
+      <div className="group relative border border-sky/20 rounded-2xl overflow-hidden bg-ink/50 backdrop-blur-sm p-8 md:p-10" role="status">
+
+        <p className="font-mono text-[0.65rem] tracking-[0.3em] text-accent mb-4">
+          [ TRANSMISSION READY ]
         </p>
-        <h2 className="font-display mt-3 text-2xl font-extrabold text-body">
+        <h2 className="font-display text-2xl md:text-3xl font-bold uppercase text-white mb-6">
           {ENQUIRY_EMAIL
-            ? "Your email draft is open — hit send."
-            : "Your enquiry is ready — send it on a channel we monitor."}
+            ? "YOUR EMAIL DRAFT IS OPEN."
+            : "ENQUIRY PACKAGED. AWAITING ROUTING."}
         </h2>
         {!ENQUIRY_EMAIL && (
           <>
-            <pre className="mt-5 whitespace-pre-wrap rounded-xl border border-body/10 bg-paper p-5 font-sans text-[0.92rem] leading-relaxed text-body">
+            <pre className="whitespace-pre-wrap rounded-xl border-l-2 border-accent bg-sky/5 p-5 font-mono text-[0.8rem] leading-relaxed text-sky mb-8">
               {composed}
             </pre>
-            <div className="mt-5 flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-4">
               <button
                 type="button"
                 onClick={copy}
-                className="rounded-full bg-blue btn-sweep px-6 py-2.5 text-[0.88rem] font-bold text-white transition hover:bg-blue-deep"
+                className="inline-flex items-center justify-center border border-accent rounded-full bg-accent/10 px-6 py-3 font-mono text-xs font-bold tracking-[0.2em] text-accent transition-all hover:bg-accent hover:text-ink uppercase"
               >
-                {copied ? "Copied ✓" : "Copy message"}
+                {copied ? "COPIED ✓" : "COPY DATA"}
               </button>
               <a
                 href={socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-body/15 px-6 py-2.5 text-[0.88rem] font-semibold text-body transition hover:border-blue hover:text-sky"
+                className="inline-flex items-center justify-center border border-sky/30 bg-ink px-6 py-3 font-mono text-xs font-bold tracking-[0.2em] text-sky transition-all hover:border-accent hover:text-accent uppercase"
               >
-                Paste in Instagram DM
+                ROUTER // INSTAGRAM
               </a>
               <a
                 href={socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-body/15 px-6 py-2.5 text-[0.88rem] font-semibold text-body transition hover:border-blue hover:text-sky"
+                className="inline-flex items-center justify-center border border-sky/30 bg-ink px-6 py-3 font-mono text-xs font-bold tracking-[0.2em] text-sky transition-all hover:border-accent hover:text-accent uppercase"
               >
-                Paste on LinkedIn
+                ROUTER // LINKEDIN
               </a>
             </div>
           </>
@@ -91,31 +89,32 @@ export default function ContactForm() {
         <button
           type="button"
           onClick={() => setComposed(null)}
-          className="mt-6 text-[0.88rem] font-semibold text-body-soft underline-offset-4 hover:underline"
+          className="mt-8 font-mono text-[0.65rem] tracking-[0.2em] text-sky-dim hover:text-accent transition-colors uppercase"
         >
-          ← Edit the enquiry
+          ← ABORT & EDIT
         </button>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl bg-paper-2 p-8 shadow-card md:p-10">
-      <h2 className="font-display text-2xl font-extrabold text-body">Get in touch</h2>
+    <form onSubmit={onSubmit} className="group relative border border-sky/20 rounded-2xl overflow-hidden bg-ink/50 backdrop-blur-sm p-8 md:p-10">
 
-      <fieldset className="mt-7">
-        <legend className="text-[0.85rem] font-semibold text-body">I'm interested in</legend>
-        <div className="mt-3 flex flex-wrap gap-2">
+      <h2 className="font-display text-3xl font-bold uppercase text-white mb-8">INITIALIZE LINK</h2>
+
+      <fieldset className="mb-8">
+        <legend className="font-mono text-[0.65rem] tracking-[0.2em] text-sky mb-4">CLASSIFICATION</legend>
+        <div className="flex flex-wrap gap-3">
           {interests.map((opt) => (
             <button
               key={opt}
               type="button"
               onClick={() => setInterest(opt)}
               aria-pressed={interest === opt}
-              className={`rounded-full px-4 py-2 text-[0.85rem] font-semibold transition ${
+              className={`border rounded-full px-4 py-2 font-mono text-[0.65rem] tracking-[0.15em] transition-colors ${
                 interest === opt
-                  ? "bg-blue text-white"
-                  : "bg-paper text-body-soft hover:text-body"
+                  ? "border-accent bg-accent/20 text-accent"
+                  : "border-sky/20 bg-ink text-sky-dim hover:border-accent/50 hover:text-sky"
               }`}
             >
               {opt}
@@ -124,45 +123,46 @@ export default function ContactForm() {
         </div>
       </fieldset>
 
-      <div className="mt-6 grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2 mb-6">
         <label className="block">
-          <span className="text-[0.85rem] font-semibold text-body">Your name</span>
-          <input name="name" required autoComplete="name" className={inputCls} placeholder="Priya Sharma" />
+          <span className="font-mono text-[0.65rem] tracking-[0.2em] text-sky">OPERATIVE NAME</span>
+          <input name="name" required autoComplete="name" className={inputCls} placeholder="J. DOE" />
         </label>
         <label className="block">
-          <span className="text-[0.85rem] font-semibold text-body">Email</span>
+          <span className="font-mono text-[0.65rem] tracking-[0.2em] text-sky">RETURN SIGNAL (EMAIL)</span>
           <input
             name="email"
             type="email"
             required
             autoComplete="email"
             className={inputCls}
-            placeholder="you@example.com"
+            placeholder="COMM@NETWORK.COM"
           />
         </label>
       </div>
 
-      <label className="mt-5 block">
-        <span className="text-[0.85rem] font-semibold text-body">Message</span>
+      <label className="block mb-8">
+        <span className="font-mono text-[0.65rem] tracking-[0.2em] text-sky">PAYLOAD (MESSAGE)</span>
         <textarea
           name="message"
           required
           rows={5}
           className={`${inputCls} resize-y`}
-          placeholder="Tell us about your background and what you'd like to learn…"
+          placeholder="TRANSMIT YOUR COORDINATES..."
         />
       </label>
 
       <button
         type="submit"
-        className="mt-7 w-full rounded-full bg-blue btn-sweep px-7 py-4 text-[0.98rem] font-bold text-white transition hover:bg-blue-deep sm:w-auto"
+        className="w-full inline-flex items-center justify-center border border-accent rounded-full bg-accent/10 px-8 py-4 font-mono text-xs font-bold tracking-[0.2em] text-accent transition-all hover:bg-accent hover:text-ink uppercase"
       >
-        {ENQUIRY_EMAIL ? "Send enquiry" : "Prepare my enquiry"}
+        {ENQUIRY_EMAIL ? "INITIATE TRANSMISSION" : "PACKAGE TRANSMISSION"}
       </button>
-      <p className="mt-3 text-[0.82rem] leading-relaxed text-body-soft">
+      
+      <p className="mt-4 font-mono text-[0.6rem] tracking-[0.1em] text-sky-dim text-center">
         {ENQUIRY_EMAIL
-          ? `Opens your email app addressed to ${ENQUIRY_EMAIL}.`
-          : "We'll compose your enquiry as a ready-to-send message — deliver it on Instagram, Facebook, or LinkedIn, where our team replies."}
+          ? `OPENS LOCAL MAIL CLIENT BOUND FOR ${ENQUIRY_EMAIL}.`
+          : "PACKAGES ENQUIRY FOR MANUAL ROUTING VIA SOCIAL CHANNELS."}
       </p>
     </form>
   );
