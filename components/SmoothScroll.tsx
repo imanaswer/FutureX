@@ -1,7 +1,8 @@
 "use client";
 
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { ReactLenis } from "lenis/react";
-import { useReducedMotion } from "framer-motion";
+
 
 /* Inertia smooth-scroll — the single biggest "premium feel" upgrade.
    Disabled under reduced-motion so it never fights assistive tech. */
