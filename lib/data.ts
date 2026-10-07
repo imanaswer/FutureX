@@ -1,6 +1,7 @@
 export type Course = {
   slug: string;
   code: string;
+  image: string;
   level: 1 | 2 | 3 | 4;
   title: string;
   shortName: string;
@@ -16,6 +17,7 @@ export const courses: Course[] = [
   {
     slug: "certificate-generative-ai-applied-ai-tools",
     code: "FX-L1",
+    image: "/images/courses/genai.jpg",
     shortName: "Generative AI & Applied Tools",
     level: 1,
     title: "Certificate in Generative AI & Applied AI Tools",
@@ -41,6 +43,7 @@ export const courses: Course[] = [
   {
     slug: "advanced-certificate-generative-ai-pipelines-rag",
     code: "FX-L2",
+    image: "/images/courses/rag.jpg",
     shortName: "GenAI Pipelines & RAG",
     level: 2,
     title: "Advanced Certificate in Generative AI Pipelines & RAG Systems",
@@ -66,6 +69,7 @@ export const courses: Course[] = [
   {
     slug: "professional-certificate-ai-agents-automation-deployment",
     code: "FX-L3",
+    image: "/images/courses/agents.jpg",
     shortName: "AI Agents & Deployment",
     level: 3,
     title: "Professional Certificate in AI Agents, Automation & Deployment",
@@ -92,6 +96,7 @@ export const courses: Course[] = [
   {
     slug: "professional-certificate-foundation-models-fmops",
     code: "FX-L4A",
+    image: "/images/courses/fmops.jpg",
     shortName: "Foundation Models & FMOps",
     level: 4,
     title: "Professional Certificate in Generative AI, Foundation Models & FMOps",
@@ -117,6 +122,7 @@ export const courses: Course[] = [
   {
     slug: "certification-aws-generative-ai-practitioner",
     code: "FX-L4B",
+    image: "/images/courses/aws.jpg",
     shortName: "AWS Generative AI",
     level: 4,
     title: "Certification Program in AWS Generative AI & AI Practitioner Readiness",

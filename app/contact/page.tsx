@@ -1,125 +1,98 @@
 import type { Metadata } from "next";
-import { Reveal, KineticHeading, ScrambleText } from "@/components/motion";
+import Image from "next/image";
+import { Building2, MessageCircle } from "lucide-react";
+import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
 import { socials } from "@/lib/data";
+import { Container, Section } from "@/components/ui/section";
+import { FadeIn } from "@/components/ui/text";
+import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/ui/social-icons";
+import { Glow } from "@/components/ui/background";
 
 export const metadata: Metadata = {
-  title: "Contact Us | FutureX AI Lab",
-  description:
-    "Get in touch with FutureX AI Lab — course enquiries, VibeKids school demos, and partnerships.",
+  title: "Contact",
+  description: "Get in touch with FutureX AI Lab: course enquiries, VibeKids school demos, and partnerships.",
 };
 
 const channels = [
-  { label: "FACEBOOK", href: socials.facebook, handle: "/FutureXAI" },
-  { label: "INSTAGRAM", href: socials.instagram, handle: "@futurexailab" },
-  { label: "LINKEDIN", href: socials.linkedin, handle: "gtec-futurex" },
+  { label: "Instagram", href: socials.instagram, handle: "@futurexailab", Icon: InstagramIcon },
+  { label: "LinkedIn", href: socials.linkedin, handle: "gtec-futurex", Icon: LinkedInIcon },
+  { label: "Facebook", href: socials.facebook, handle: "/FutureXAI", Icon: FacebookIcon },
 ];
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-ink text-white pt-[100px] pb-32 overflow-hidden selection:bg-accent selection:text-ink">
-      
-      {/* HUD HEADER */}
-      <section className="relative w-full border-b border-sky/20 px-5 pb-20 pt-10 md:pt-20">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-            <div className="md:col-span-8">
-              <Reveal>
-                <div className="flex items-center gap-4 mb-8">
-                  <span className="h-[1px] w-12 bg-accent/80" />
-                  <p className="font-mono text-xs tracking-[0.3em] text-accent">
-                    <ScrambleText text="SYS.CONTACT // TRANSMISSION" />
-                  </p>
-                </div>
-              </Reveal>
-              <KineticHeading 
-                as="h1" 
-                text="TELL US WHERE YOU'RE HEADED."
-                className="font-display text-5xl md:text-7xl xl:text-8xl font-black uppercase leading-[0.85] tracking-tight"
-              />
-              <Reveal delay={0.2} className="mt-10 max-w-xl">
-                <p className="text-sky-dim text-lg leading-relaxed font-mono text-sm">
-                  Course enquiries, VibeKids school demos, partnerships — send a transmission and our team will chart your route.
-                </p>
-              </Reveal>
-            </div>
-            
-            <div className="md:col-span-4 flex flex-col justify-end border-l border-sky/20 pl-8 hidden md:flex">
-                <div className="space-y-8 font-mono text-xs text-sky-dim">
-                    <Reveal delay={0.3}>
-                        <p className="tracking-[0.2em]">[ ROUTE.01 ] <br/> <span className="text-white text-xl font-bold tracking-normal">ENQUIRIES</span></p>
-                    </Reveal>
-                    <Reveal delay={0.4}>
-                        <p className="tracking-[0.2em]">[ ROUTE.02 ] <br/> <span className="text-white text-xl font-bold tracking-normal">SCHOOL DEMOS</span></p>
-                    </Reveal>
-                    <Reveal delay={0.5}>
-                        <p className="tracking-[0.2em]">[ ROUTE.03 ] <br/> <span className="text-white text-xl font-bold tracking-normal">PARTNERSHIPS</span></p>
-                    </Reveal>
-                </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <>
+      <PageHero
+        eyebrow="Contact"
+        icon={<MessageCircle />}
+        title="Tell us where you're headed."
+        description="Course enquiries, VibeKids school demos, partnerships. Send a note and we will map the route with you."
+        compact
+      />
 
-      {/* FORM & SIDEBAR */}
-      <section className="relative w-full py-24">
-        {/* Background Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
-        
-        <div className="mx-auto max-w-7xl px-5 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12">
-            
-            <Reveal>
+      <Section className="overflow-hidden pt-6 md:pt-8">
+        <Image
+          src="/img/contact-signal.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="pointer-events-none object-cover object-right opacity-40"
+        />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40" />
+        <Container className="relative">
+          <div className="grid gap-8 lg:grid-cols-12">
+            <FadeIn className="lg:col-span-7">
               <ContactForm />
-            </Reveal>
+            </FadeIn>
 
-            <div className="space-y-8">
-              <Reveal delay={0.12}>
-                <div className="group relative border border-sky/20 rounded-2xl overflow-hidden bg-ink p-8">
-                  
-                  <p className="font-mono text-[0.65rem] tracking-[0.2em] text-accent mb-6">
-                    [ DIRECT CHANNELS ]
-                  </p>
-                  <ul className="space-y-4">
-                    {channels.map((c) => (
-                      <li key={c.label}>
+            <div className="space-y-5 lg:col-span-5">
+              <FadeIn delay={0.1}>
+                <div className="rounded-3xl border border-white/10 bg-ink-2/60 p-7 backdrop-blur-xl">
+                  <h2 className="font-display text-xl font-bold text-white">Direct channels</h2>
+                  <p className="mt-2 text-sm text-body-soft">We are most active here.</p>
+                  <ul className="mt-5 space-y-3">
+                    {channels.map(({ label, href, handle, Icon }) => (
+                      <li key={label}>
                         <a
-                          href={c.href}
+                          href={href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group/link flex items-center justify-between border border-sky/15 rounded-xl bg-sky/5 px-5 py-4 transition-colors hover:border-accent/50 hover:bg-accent/10"
+                          className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:bg-accent/[0.06]"
                         >
-                          <span className="font-mono text-[0.8rem] text-white group-hover/link:text-accent transition-colors">{c.label}</span>
-                          <span className="font-mono text-[0.7rem] text-sky-dim group-hover/link:text-sky transition-colors">
-                            {c.handle}
+                          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.05] text-body-soft transition-colors group-hover:bg-accent group-hover:text-ink">
+                            <Icon />
+                          </span>
+                          <span className="flex-1">
+                            <span className="block text-[0.95rem] font-semibold text-white">{label}</span>
+                            <span className="block text-sm text-sky-dim">{handle}</span>
                           </span>
                         </a>
                       </li>
                     ))}
                   </ul>
                 </div>
-              </Reveal>
+              </FadeIn>
 
-              <Reveal delay={0.2}>
-                <div className="group relative border border-sky/20 rounded-2xl overflow-hidden bg-ink p-8">
-                  
-                  <p className="font-mono text-[0.65rem] tracking-[0.2em] text-sky mb-4">
-                    [ NETWORK ORIGIN ]
-                  </p>
-                  <h3 className="font-display text-2xl font-bold uppercase text-white mb-4">
-                    G-TEC EDUCATION
-                  </h3>
-                  <p className="font-mono text-[0.85rem] leading-relaxed text-sky-dim">
-                    FutureX AI Lab is backed by G-TEC's education network — bringing AI programs to students, professionals, and schools.
-                  </p>
+              <FadeIn delay={0.18}>
+                <div className="border-gradient relative overflow-hidden rounded-3xl bg-ink-2/60 p-7 backdrop-blur-xl">
+                  <Glow className="-right-10 -top-10 h-40 w-40" color="rgba(32,104,216,0.35)" />
+                  <div className="relative">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.05] text-accent">
+                      <Building2 className="h-5 w-5" aria-hidden />
+                    </span>
+                    <h2 className="font-display mt-5 text-xl font-bold text-white">Backed by G-TEC Education</h2>
+                    <p className="mt-2 text-[0.95rem] leading-relaxed text-body-soft">
+                      FutureX AI Lab is an initiative of G-TEC Education, bringing AI programs to
+                      students, professionals, and schools through its education network.
+                    </p>
+                  </div>
                 </div>
-              </Reveal>
+              </FadeIn>
             </div>
-
           </div>
-        </div>
-      </section>
-
-    </main>
+        </Container>
+      </Section>
+    </>
   );
 }

@@ -1,7 +1,27 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Reveal, KineticHeading, ScrambleText } from "@/components/motion";
-import { Tilt } from "@/components/interactions";
+import Image from "next/image";
+import {
+  BarChart3,
+  BookOpenCheck,
+  BrainCircuit,
+  Check,
+  FlaskConical,
+  GraduationCap,
+  School,
+  ShieldCheck,
+  Sparkles,
+  Users,
+  UserRound,
+} from "lucide-react";
+import PageHero from "@/components/PageHero";
+import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button";
+import { ChatMock } from "@/components/ui/chat-mock";
+import { CTASection } from "@/components/ui/cta-section";
+import { Container, Section, SectionHeader } from "@/components/ui/section";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { FadeIn, Stagger, StaggerItem } from "@/components/ui/text";
+import { DotPattern, Glow, GridPattern, Hairline } from "@/components/ui/background";
 
 export const metadata: Metadata = {
   title: "VibeKids — Socratic AI Learning for Grades 3–12",
@@ -11,272 +31,211 @@ export const metadata: Metadata = {
 
 const features = [
   {
-    title: "COGNITIVE DIAGNOSTICS",
-    body: "Vibey monitors reasoning habits in real time and pinpoints the foundational gap — often from an earlier grade — that's actually blocking today's concept.",
-    mono: "REAL-TIME MAPPING",
+    Icon: BrainCircuit,
+    title: "Cognitive diagnostics",
+    body: "Vibey monitors reasoning habits in real time and pinpoints the foundational gap, often from an earlier grade, that is actually blocking today's concept.",
+    span: "md:col-span-3",
   },
   {
-    title: "MULTI-DASHBOARD ANALYTICS",
-    body: "Separate views for school leadership, teachers, and parents — performance, progress, and early-warning signals for every learner.",
-    mono: "LEADERSHIP · TEACHER · PARENT",
+    Icon: BarChart3,
+    title: "Multi-dashboard analytics",
+    body: "Separate views for school leadership, teachers, and parents: performance, progress, and early-warning signals for every learner.",
+    span: "md:col-span-3",
   },
   {
-    title: "AI LITERACY TRAINING",
-    body: "Age-appropriate modules on spotting hallucinations, recognizing bias, and writing effective prompts — literacy for the AI era, not just screen time.",
-    mono: "HALLUCINATIONS · BIAS",
+    Icon: ShieldCheck,
+    title: "AI literacy training",
+    body: "Age-appropriate modules on spotting hallucinations, recognising bias, and writing effective prompts. Literacy for the AI era, not just screen time.",
+    span: "md:col-span-3",
   },
   {
-    title: "VIRTUAL STEM LABS",
-    body: "Digital simulations across physics, mathematics, financial literacy, and robotics — with connectivity to physical STEM kits in the classroom.",
-    mono: "PHYSICS · MATH · ROBOTICS",
+    Icon: FlaskConical,
+    title: "Virtual STEM labs",
+    body: "Digital simulations across physics, mathematics, financial literacy, and robotics, with connectivity to physical STEM kits in the classroom.",
+    span: "md:col-span-3",
   },
 ];
 
 const stakeholders = [
-  {
-    who: "SCHOOLS",
-    points: ["CBSE compliance out of the box", "Differentiation that scales", "Performance analytics per class"],
-  },
-  {
-    who: "TEACHERS",
-    points: ["Automated grading", "Early learning-blocker ID", "Lesson-planning support"],
-  },
-  {
-    who: "STUDENTS",
-    points: ["Personalized Socratic guidance", "Gamified progress", "Critical-thinking development"],
-  },
-  {
-    who: "PARENTS",
-    points: ["Weekly progress reports", "Clear performance visibility", "Less homework supervision"],
-  },
+  { Icon: School, who: "Schools", points: ["CBSE compliance out of the box", "Differentiation that scales", "Performance analytics per class"] },
+  { Icon: GraduationCap, who: "Teachers", points: ["Automated grading", "Early learning-blocker identification", "Lesson-planning support"] },
+  { Icon: Sparkles, who: "Students", points: ["Personalised Socratic guidance", "Gamified progress", "Critical-thinking development"] },
+  { Icon: UserRound, who: "Parents", points: ["Weekly progress reports", "Clear performance visibility", "Less homework supervision"] },
+];
+
+const compliance = [
+  { label: "CBSE Circular Acad-15/2026", body: "Computational thinking and AI as part of the school mandate." },
+  { label: "NEP 2020", body: "Competency-based, learner-centred education policy." },
+  { label: "NCF-SE 2023", body: "National Curriculum Framework for School Education." },
+];
+
+const chat = [
+  { from: "student" as const, text: "I don't get how to find the area of a triangle." },
+  { from: "vibey" as const, text: "Let's start somewhere you know. What's the area of a rectangle that's 6 cm by 4 cm?" },
+  { from: "student" as const, text: "24 cm²!" },
+  { from: "vibey" as const, text: "Now imagine cutting that rectangle corner to corner. What do you get, and what happened to the area?" },
+  { from: "student" as const, text: "Two triangles… so each one is 12 cm²?" },
 ];
 
 export default function VibeKidsPage() {
   return (
-    <main className="min-h-screen bg-ink text-white pt-[100px] overflow-hidden selection:bg-accent selection:text-ink">
-      
-      {/* HUD HEADER */}
-      <section className="relative w-full border-b border-sky/20 px-5 pb-20 pt-10 md:pt-20">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-            <div className="md:col-span-8">
-              <Reveal>
-                <div className="flex items-center gap-4 mb-8">
-                  <span className="h-[1px] w-12 bg-accent/80" />
-                  <p className="font-mono text-xs tracking-[0.3em] text-accent">
-                    <ScrambleText text="SYS.VIBEKIDS // ACTIVE" />
-                  </p>
-                </div>
-              </Reveal>
-              <KineticHeading 
-                as="h1" 
-                text="THE AI TUTOR THAT ASKS — NEVER TELLS."
-                className="font-display text-5xl md:text-7xl xl:text-8xl font-black uppercase leading-[0.85] tracking-tight"
+    <>
+      <PageHero
+        eyebrow="VibeKids · Grades 3–12"
+        icon={<Sparkles />}
+        title="The AI tutor that asks, never tells."
+        description="VibeKids is an AI-powered interactive learning system that integrates with school curricula, textbooks, and STEM kits. At its heart is Vibey, a Socratic AI engine built to guide reasoning step by step instead of handing over answers."
+        actions={
+          <>
+            <ButtonLink href="/contact" size="lg" arrow="right">
+              Book a school demo
+            </ButtonLink>
+            <ButtonLink href="#how" size="lg" variant="secondary">
+              See how Vibey teaches
+            </ButtonLink>
+          </>
+        }
+        aside={
+          <div className="relative">
+            <Glow className="inset-6" color="rgba(52,198,247,0.3)" />
+            <div className="border-gradient relative aspect-[4/3] overflow-hidden rounded-3xl shadow-card-lg">
+              <Image
+                src="/img/vibekids.png"
+                alt="A child reaching toward a glowing network of ideas"
+                fill
+                priority
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover"
               />
-              <Reveal delay={0.2} className="mt-10 max-w-xl">
-                <p className="text-sky-dim text-lg leading-relaxed font-mono text-sm">
-                  VibeKids is an AI-powered interactive learning system that integrates with school curricula, textbooks, and STEM kits. At its heart is Vibey, a Socratic AI engine built to guide reasoning step by step instead of handing over answers.
-                </p>
-              </Reveal>
-              
-              <Reveal delay={0.3} className="mt-10">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-4 border border-accent rounded-full bg-accent/10 px-8 py-4 font-mono text-xs font-bold tracking-[0.2em] text-accent transition-all hover:bg-accent hover:text-ink uppercase group"
-                >
-                  Book a School Demo
-                  <span className="text-lg leading-none transform group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
-              </Reveal>
             </div>
-            
-            <div className="md:col-span-4 flex flex-col justify-end border-l border-sky/20 pl-8 hidden md:flex">
-                <div className="space-y-8 font-mono text-xs text-sky-dim">
-                    <Reveal delay={0.3}>
-                        <p className="tracking-[0.2em]">[ TARGET.01 ] <br/> <span className="text-white text-xl font-bold tracking-normal">GRADES 3–12</span></p>
-                    </Reveal>
-                    <Reveal delay={0.4}>
-                        <p className="tracking-[0.2em]">[ COMPLIANCE ] <br/> <span className="text-white text-xl font-bold tracking-normal">CBSE ACAD-15/2026</span></p>
-                    </Reveal>
-                    <Reveal delay={0.5}>
-                        <p className="tracking-[0.2em]">[ FRAMEWORK ] <br/> <span className="text-white text-xl font-bold tracking-normal">NEP 2020 & NCF-SE 2023</span></p>
-                    </Reveal>
-                </div>
+            <div className="absolute -bottom-5 -left-4 hidden animate-float rounded-2xl border border-white/10 bg-ink-2/80 p-4 shadow-card-lg backdrop-blur-xl sm:block">
+              <p className="text-[0.7rem] font-medium uppercase tracking-[0.14em] text-sky-dim">Socratic by design</p>
+              <p className="font-display mt-1 text-lg font-bold text-white">Guides, never answers</p>
             </div>
           </div>
-        </div>
-      </section>
+        }
+      />
 
-      {/* SOCRATIC ENGINE TERMINAL */}
-      <section className="relative w-full border-b border-sky/20 py-24">
-        {/* Background grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
-        
-        <div className="mx-auto grid max-w-7xl items-center gap-16 px-5 lg:grid-cols-2 relative z-10">
-          <Reveal>
-             <div className="flex items-center gap-4 mb-6">
-                <span className="h-[1px] w-12 bg-accent/50" />
-                <p className="font-mono text-xs tracking-[0.3em] text-accent">
-                  <ScrambleText text="THE VIBEY ENGINE" />
+      {/* How Vibey teaches */}
+      <Section id="how" className="overflow-hidden">
+        <DotPattern mask="radial-gradient(ellipse 50% 60% at 20% 50%, #000 10%, transparent 100%)" />
+        <Container className="relative">
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="order-2 lg:order-1 lg:col-span-6">
+              <FadeIn blur>
+                <ChatMock messages={chat} subtitle="Socratic AI tutor · Class 7 Maths" />
+              </FadeIn>
+            </div>
+            <div className="order-1 lg:order-2 lg:col-span-6">
+              <SectionHeader
+                eyebrow="The Vibey engine"
+                icon={<BrainCircuit />}
+                title="Answer machines create copy-paste learners."
+                description="Most AI tutors hand students the solution and short-circuit the learning. Vibey is built around one constraint: it never gives the direct answer. It asks the next-smallest question so the student takes the step themselves."
+              />
+              <FadeIn delay={0.2}>
+                <p className="mt-5 text-[1.02rem] leading-relaxed text-body-soft">
+                  Behind the conversation, real-time cognitive mapping tracks how each child reasons,
+                  building a live map of strengths, gaps, and exactly what to close next. Teachers and
+                  parents see a map of how the child thinks, not just a score.
                 </p>
-             </div>
-             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-[0.9] tracking-tight text-white">
-               ANSWER MACHINES CREATE COPY-PASTE LEARNERS.
-             </h2>
-             <div className="mt-8 space-y-6 font-mono text-sm text-sky-dim leading-relaxed border-l-2 border-accent/50 pl-6">
-               <p>
-                 Most AI tutors hand students the solution — and short-circuit the learning. Vibey is built around one constraint: it never gives the direct answer. It asks the next-smallest question, so the student takes the step themselves.
-               </p>
-               <p>
-                 Behind the conversation, real-time cognitive mapping tracks how each child reasons — building a live map of strengths, gaps, and exactly what to close next.
-               </p>
-             </div>
-          </Reveal>
-          
-          <Reveal delay={0.15}>
-            {/* TERMINAL UI */}
-            <div className="group relative border border-sky/30 rounded-2xl overflow-hidden bg-ink/80 backdrop-blur p-1 shadow-[0_0_30px_rgba(34,193,245,0.05)] hover:shadow-[0_0_40px_rgba(34,193,245,0.15)] transition-shadow">
-               {/* Header */}
-               <div className="flex items-center justify-between border-b border-sky/20 bg-sky/5 px-4 py-3">
-                 <p className="font-mono text-[0.65rem] tracking-[0.2em] text-accent">SESSION.LOG // CLASS_6_MATHS</p>
-                 <div className="flex gap-2">
-                   <div className="h-2 w-2 rounded-full border border-sky/40" />
-                   <div className="h-2 w-2 rounded-full border border-sky/40" />
-                   <div className="h-2 w-2 rounded-full border border-accent bg-accent/20" />
-                 </div>
-               </div>
-               {/* Body */}
-               <div className="p-6 font-mono text-[0.85rem] leading-relaxed space-y-6">
-                 <div>
-                   <p className="text-sky-dim/50 mb-1 text-[0.65rem] tracking-widest">USER_INPUT</p>
-                   <p className="text-white border-l-2 border-sky/30 pl-4">
-                     {">"} I don't get how to find the area of a triangle.
-                   </p>
-                 </div>
-                 
-                 <div>
-                   <p className="text-accent mb-1 text-[0.65rem] tracking-widest">VIBEY_AI</p>
-                   <p className="text-sky border-l-2 border-accent pl-4">
-                     Let's start somewhere you know. What's the area of a rectangle that's 6 cm by 4 cm?
-                   </p>
-                 </div>
-
-                 <div>
-                   <p className="text-sky-dim/50 mb-1 text-[0.65rem] tracking-widest">USER_INPUT</p>
-                   <p className="text-white border-l-2 border-sky/30 pl-4">
-                     {">"} 24 cm²!
-                   </p>
-                 </div>
-
-                 <div>
-                   <p className="text-accent mb-1 text-[0.65rem] tracking-widest">VIBEY_AI</p>
-                   <p className="text-sky border-l-2 border-accent pl-4 relative">
-                     Now imagine cutting that rectangle corner-to-corner. What do you get — and what happened to the area?
-                     <span className="absolute -right-2 top-0 h-full w-[2px] bg-accent animate-pulse" />
-                   </p>
-                 </div>
-               </div>
-               
-               {/* Footer Status */}
-               <div className="border-t border-sky/20 bg-sky/5 px-4 py-2 font-mono text-[0.6rem] tracking-[0.15em] text-sky-dim flex justify-between">
-                 <span>COGNITIVE_MAP: ACTIVE</span>
-                 <span className="text-accent">RECTANGLES ✓ → TRIANGLES [ IN PROGRESS ]</span>
-               </div>
+              </FadeIn>
             </div>
-          </Reveal>
-        </div>
-      </section>
+          </div>
+        </Container>
+      </Section>
 
-      {/* SYSTEM CAPABILITIES */}
-      <section className="relative w-full border-b border-sky/20 py-24">
-        <div className="mx-auto max-w-7xl px-5">
-          <Reveal className="mb-16">
-            <div className="flex items-center gap-4 mb-6">
-              <span className="h-[1px] w-12 bg-accent/50" />
-              <p className="font-mono text-xs tracking-[0.3em] text-accent">
-                <ScrambleText text="SYS // CAPABILITIES" />
-              </p>
-            </div>
-            <KineticHeading 
-              as="h2" 
-              text="BUILT FOR THE WHOLE CLASSROOM."
-              className="font-display text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-[0.9] tracking-tight"
-            />
-          </Reveal>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {features.map((f, i) => (
-              <Reveal key={f.title} delay={(i % 2) * 0.12}>
-                <Tilt className="h-full" max={5}>
-                  <div className="group relative h-full border border-sky/20 rounded-2xl overflow-hidden bg-ink/50 p-8 md:p-10 transition-colors hover:border-accent/40 hover:bg-sky/5">
-                    
-                    <p className="font-mono text-[0.65rem] tracking-[0.2em] text-accent/80 mb-4 group-hover:text-accent transition-colors">
-                      [ {f.mono} ]
-                    </p>
-                    <h3 className="font-display text-2xl font-bold uppercase text-white mb-4 group-hover:text-accent transition-colors">
-                      {f.title}
-                    </h3>
-                    <p className="font-mono text-[0.85rem] leading-relaxed text-sky-dim">
-                      {f.body}
-                    </p>
-                  </div>
-                </Tilt>
-              </Reveal>
+      {/* Features bento */}
+      <Section tone="paper">
+        <GridPattern size={56} mask="radial-gradient(ellipse 70% 50% at 50% 0%, #000 10%, transparent 100%)" />
+        <Container className="relative">
+          <SectionHeader
+            eyebrow="Capabilities"
+            icon={<BookOpenCheck />}
+            title="Built for the whole classroom."
+            description="Diagnostics, dashboards, literacy, and labs in one system that plugs into what schools already use."
+          />
+          <Stagger className="mt-12 grid gap-5 md:grid-cols-6">
+            {features.map(({ Icon, title, body, span }) => (
+              <StaggerItem key={title} className={span}>
+                <SpotlightCard className="h-full" innerClassName="flex h-full flex-col p-7 md:p-8">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <h3 className="font-display mt-6 text-xl font-bold text-white md:text-2xl">{title}</h3>
+                  <p className="mt-3 text-[0.98rem] leading-relaxed text-body-soft">{body}</p>
+                </SpotlightCard>
+              </StaggerItem>
             ))}
+          </Stagger>
+        </Container>
+      </Section>
+
+      {/* Stakeholders */}
+      <Section>
+        <Container>
+          <SectionHeader
+            eyebrow="One platform, four wins"
+            icon={<Users />}
+            title="Everyone around the learner gets something."
+          />
+          <Stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {stakeholders.map(({ Icon, who, points }) => (
+              <StaggerItem key={who}>
+                <div className="h-full rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-colors hover:border-white/20">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.05] text-accent">
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <h3 className="font-display mt-5 text-xl font-bold text-white">{who}</h3>
+                  <ul className="mt-4 space-y-2.5">
+                    {points.map((p) => (
+                      <li key={p} className="flex gap-2.5 text-sm leading-relaxed text-body-soft">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </Container>
+      </Section>
+
+      {/* Compliance */}
+      <Section tone="paper" className="py-14 md:py-16">
+        <Hairline className="absolute inset-x-0 top-0" />
+        <Container>
+          <div className="grid items-center gap-8 lg:grid-cols-12">
+            <FadeIn className="lg:col-span-5">
+              <Badge icon={<ShieldCheck />} className="mb-4">
+                Aligned with
+              </Badge>
+              <h2 className="font-display text-2xl font-bold tracking-tight text-white md:text-3xl">
+                National frameworks, built in.
+              </h2>
+            </FadeIn>
+            <Stagger className="grid gap-4 sm:grid-cols-3 lg:col-span-7">
+              {compliance.map((c) => (
+                <StaggerItem key={c.label}>
+                  <div className="h-full rounded-2xl border border-white/10 bg-ink/40 p-5">
+                    <p className="font-display text-[1.02rem] font-bold text-white">{c.label}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-body-soft">{c.body}</p>
+                  </div>
+                </StaggerItem>
+              ))}
+            </Stagger>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* ONE PLATFORM, FOUR WINS */}
-      <section className="relative w-full border-b border-sky/20">
-        <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x lg:divide-x divide-sky/20">
-          {stakeholders.map((s, i) => (
-            <div key={s.who} className="p-10 hover:bg-white/[0.02] transition-colors group relative">
-              <Reveal delay={i * 0.1}>
-                <p className="font-mono text-[0.65rem] tracking-[0.3em] text-accent/70 mb-6 group-hover:text-accent transition-colors">
-                  [ {String(i + 1).padStart(2, "0")} ]
-                </p>
-                <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-white mb-6 group-hover:text-accent transition-colors">
-                  {s.who}
-                </h3>
-                <ul className="space-y-4">
-                  {s.points.map((p) => (
-                    <li key={p} className="flex gap-3 text-[0.8rem] leading-relaxed text-sky-dim font-mono">
-                      <span aria-hidden className="text-accent/50 group-hover:text-accent transition-colors mt-[1px]">›</span>
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* FOOTER CTA */}
-      <section className="relative w-full py-24 text-center">
-        <div className="mx-auto max-w-2xl px-5">
-          <Reveal>
-            <p className="font-mono text-xs tracking-[0.3em] text-accent mb-6">
-              <ScrambleText text="QUERY // INTEGRATION" />
-            </p>
-            <h2 className="font-display text-4xl md:text-5xl font-black uppercase tracking-tight text-white mb-6">
-              BRING VIBEKIDS TO YOUR SCHOOL.
-            </h2>
-            <p className="font-mono text-sm text-sky-dim leading-relaxed mb-10">
-              We'll walk your leadership team through the platform, dashboards, and CBSE alignment — with your own textbooks and curriculum.
-            </p>
-            <Link
-               href="/contact"
-               className="inline-flex items-center justify-center gap-4 border border-accent rounded-full bg-accent/10 px-10 py-5 font-mono text-xs font-bold tracking-[0.2em] text-accent transition-all hover:bg-accent hover:text-ink uppercase group shadow-[0_0_20px_rgba(34,193,245,0.2)] hover:shadow-[0_0_30px_rgba(34,193,245,0.4)]"
-             >
-               Book a Demo
-               <span className="text-lg leading-none transform group-hover:translate-x-1 transition-transform">→</span>
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
-    </main>
+      <CTASection
+        eyebrow="For schools"
+        title="Bring VibeKids to your school."
+        description="We will walk your leadership team through the platform, the dashboards, and the CBSE alignment, using your own textbooks and curriculum."
+        primary={{ label: "Book a demo", href: "/contact" }}
+        secondary={{ label: "Read about Socratic AI", href: "/blog/socratic-ai-how-vibey-teaches-without-giving-answers" }}
+      />
+    </>
   );
 }

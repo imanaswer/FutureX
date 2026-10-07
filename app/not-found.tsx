@@ -1,25 +1,33 @@
-import Link from "next/link";
+import { Compass } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button";
+import { Container } from "@/components/ui/section";
+import { Aurora, GridPattern } from "@/components/ui/background";
 
 export default function NotFound() {
   return (
-    <section className="dark-zone flex min-h-[70vh] items-center bg-ink pt-24">
-      <div className="mx-auto max-w-2xl px-5 text-center">
-        <p className="font-mono text-[0.72rem] tracking-[0.22em] text-accent">
-          SIGNAL LOST · 404
-        </p>
-        <h1 className="font-display mt-5 text-balance text-4xl font-extrabold tracking-[-0.02em] text-white md:text-6xl">
-          This page drifted off the flight path.
+    <section className="relative flex min-h-[80vh] items-center overflow-hidden bg-ink pt-24">
+      <Aurora intensity={0.8} />
+      <GridPattern />
+      <Container className="relative text-center">
+        <Badge icon={<Compass />} className="mb-6">
+          404 · Page not found
+        </Badge>
+        <h1 className="font-display mx-auto max-w-2xl text-balance text-4xl font-bold tracking-[-0.025em] text-white md:text-6xl">
+          This page drifted off the path.
         </h1>
-        <p className="mt-5 text-lg text-sky-dim">
-          The page you're looking for doesn't exist or has moved.
+        <p className="mx-auto mt-5 max-w-md text-lg text-body-soft">
+          The page you are looking for does not exist or has moved.
         </p>
-        <Link
-          href="/"
-          className="mt-8 inline-block rounded-full bg-accent btn-sweep px-8 py-3.5 font-bold text-ink transition hover:bg-accent-deep"
-        >
-          Return to mission control
-        </Link>
-      </div>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <ButtonLink href="/" size="lg" arrow="right">
+            Back to home
+          </ButtonLink>
+          <ButtonLink href="/courses" size="lg" variant="secondary">
+            Browse programs
+          </ButtonLink>
+        </div>
+      </Container>
     </section>
   );
 }

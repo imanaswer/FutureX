@@ -1,8 +1,8 @@
 # FutureX AI Lab — Website
 
-A premium, cinematic marketing site for **FutureX AI Lab**, an AI‑education
-initiative of **G‑TEC Education**. Rebuild of [futurexailab.com](https://futurexailab.com)
-in Next.js with an all‑dark, film‑led visual world ("Flight Path").
+Marketing site for **FutureX AI Lab**, an AI‑education initiative of
+**G‑TEC Education**. Rebuild of [futurexailab.com](https://futurexailab.com)
+in Next.js with a dark, editorial design built from a reusable component kit.
 
 ---
 
@@ -13,8 +13,9 @@ plus **VibeKids** — a Socratic AI tutor for school grades 3–12. This site is
 marketing front door: it explains the programs, shows the career pathways, and
 drives enquiries.
 
-- **Visual direction:** unified dark, cinematic. Full‑bleed brand video, a
-  scroll‑drawn "ascent" trajectory, brand poster gallery, and image bands.
+- **Visual direction:** dark and editorial. Rotating-word hero over the brand
+  film, an interactive four-level ladder, a live Socratic chat demo, and a
+  poster marquee.
 - **Mode:** Persuade (a landing/marketing site — earn attention, drive enquiry).
 - **Brand:** deep‑blue grounds, bright **cyan** accent (sampled from the logo),
   Bricolage Grotesque display / Schibsted Grotesk body / JetBrains Mono for data.
@@ -27,7 +28,8 @@ drives enquiries.
 | -------------- | -------------------------------------------------- |
 | Framework      | **Next.js 15** (App Router, React 19, TypeScript)  |
 | Styling        | **Tailwind CSS v4** (`@theme` tokens in CSS)       |
-| Animation      | **Framer Motion**                                  |
+| Animation      | **Framer Motion** + Lenis smooth scroll            |
+| Icons          | **lucide-react**                                   |
 | Fonts          | `next/font/google` (Bricolage, Schibsted, JetBrains Mono) |
 | Images/Video   | `next/image` + native `<video>` (files in `public/`) |
 | Rendering      | Fully static (SSG) — all 19 routes prerender       |
@@ -59,39 +61,44 @@ npm run start     # serve the production build
 
 ```
 app/
-  layout.tsx            Root layout: fonts, <Nav>, <Footer>, metadata
-  page.tsx              HOME — Hero → ticker → Services → Trajectory
-                        → PosterWall → VibeKids → closing VideoBand
-  globals.css          Tailwind import + @theme design tokens + keyframes
-  icon.png             Favicon (FX globe)
-  not-found.tsx        Cinematic 404
-  about/page.tsx       Mission, vision, stats, hands ImageBand, career tracks
-  courses/page.tsx     The 4‑level ladder (all 5 programs)
-  courses/[slug]/      Per‑course detail (outcomes, syllabus, roles, tools)
-  vibekids/page.tsx    VibeKids product page (Socratic AI, features, stakeholders)
-  blog/page.tsx        Article index (featured + grid)
-  blog/[slug]/         Article reader
-  contact/page.tsx     Enquiry form + direct channels
+  layout.tsx            Root layout: fonts, <Nav>, <Footer>, smooth scroll
+  template.tsx          Light route transition
+  page.tsx              HOME — Hero → tools marquee → services bento
+                        → level ladder → VibeKids chat → poster gallery → FAQ → CTA
+  globals.css           Tailwind import + @theme tokens + keyframes + utilities
+  about/page.tsx        Mission/vision, commitments, stats, image band, timeline, tracks
+  courses/page.tsx      Level overview + filterable program grid
+  courses/[slug]/       Program detail: outcomes, syllabus accordion, sidebar, prev/next
+  vibekids/page.tsx     VibeKids: chat demo, features bento, stakeholders, compliance
+  blog/page.tsx         Featured article + grid
+  blog/[slug]/          Article reader with progress bar
+  contact/page.tsx      Enquiry form + direct channels
+  not-found.tsx         404
 
 components/
-  Nav.tsx / Footer.tsx     Global chrome (logo, links, socials)
-  Hero.tsx                 Home hero — full‑bleed FX‑orb video, headline
-  PageHero.tsx             Shared interior‑page hero (globe + ascent line)
-  Trajectory.tsx           Scroll‑drawn 4‑level ascent (desktop) / rail (mobile)
-  PosterWall.tsx           Brand poster gallery (4 posters)
-  BrandFilm.tsx            Full‑bleed video band (reusable; currently unused)
-  VideoBand.tsx            Reusable full‑bleed video section (closing CTA)
-  ImageBand.tsx            Reusable full‑bleed image band (hands, on /about)
-  AscentLine.tsx           The brand "ascent" SVG that draws on load
+  Nav.tsx / Footer.tsx     Floating pill nav (mobile sheet) and footer
+  Hero.tsx                 Home hero: badge, rotating-word headline, CTAs, video frame
+  PageHero.tsx             Shared interior-page hero
+  CourseExplorer.tsx       Level filter tabs + animated program grid
   ContactForm.tsx          Client enquiry form
-  motion.tsx               <Reveal> (scroll‑in) + <Counter> (count‑up)
+  ReadingProgress.tsx      Scroll progress bar for articles
+  SmoothScroll.tsx         Lenis wrapper
+  ui/                      The component kit (21st.dev conventions):
+    button, badge, section (Container/Section/SectionHeader), text
+    (BlurIn/FadeIn/Stagger/WordRotate/GradientText), spotlight-card, marquee,
+    accordion, background (GridPattern/DotPattern/Aurora/Glow/Hairline),
+    number-ticker, tilt, chat-mock, level-ladder, timeline, video-frame,
+    cta-section, social-icons
 
 lib/
   data.ts                  ALL content: courses, services, career tracks,
                            articles, socials, nav. Single source of truth.
+  utils.ts                 cn() + shared easing
+  use-reduced-motion.ts    Hydration-safe prefers-reduced-motion hook
 
 public/
-  img/       logo-white.png, fx-globe.png, hands.jpg …
+  img/       logo-white.png, about-hub.png, vibekids.png, hands.jpg …
+  images/courses/  one cover per program
   posters/   brand poster JPEGs
   video/     futurex-loop.mp4, futurex-final.mp4, futurex-poster.jpg
 ```
@@ -100,40 +107,11 @@ public/
 
 ## 5. Design system
 
-Defined as Tailwind v4 `@theme` tokens in `app/globals.css`. The whole theme is
-token‑driven — changing a token value re‑themes the site with no per‑file edits.
-
-**Color**
-
-| Token            | Value      | Use                                        |
-| ---------------- | ---------- | ------------------------------------------ |
-| `--color-ink`    | `#070B14`  | Deepest ground (hero, CTA, footer)         |
-| `--color-paper`  | `#0A1122`  | Content‑section ground (dark)              |
-| `--color-paper-2`| `#111D33`  | Raised card surface                        |
-| `--color-blue`   | `#2068D8`  | Primary brand blue (fills, buttons)        |
-| `--color-cyan` / `--color-accent` | `#34C6F7` | Signal accent (CTAs, kickers, dots) |
-| `--color-sky`    | `#A8C6FF`  | Secondary text / links on dark             |
-| `--color-body`   | `#F1F5FF`  | Primary text                               |
-| `--color-body-soft` | `#C2CEE4` | Secondary text                           |
-
-- **Elevation:** cards use a hairline sky ring + soft drop (`--shadow-card`),
-  never a filled white surface.
-- **Accent = cyan only.** (An earlier amber/yellow accent was removed as
-  off‑brand.)
-
-**Type**
-
-- Display: **Bricolage Grotesque** (`.font-display`) — headings, 700–800.
-- Body/UI: **Schibsted Grotesk** — default.
-- Data: **JetBrains Mono** — course codes, level markers, kickers only.
-
-**Motion**
-
-- One orchestrated moment per view; scroll reveals via `<Reveal>`
-  (exponential ease‑out). The ascent line draws on load. All motion respects
-  `prefers-reduced-motion` (videos fall back to poster stills).
-
-See `DESIGN.md` for the full direction contract.
+Defined as Tailwind v4 `@theme` tokens in `app/globals.css`; see `DESIGN.md`
+for the full direction. In short: one container width (`max-w-7xl`), dark
+grounds (`ink` / `paper`), a single cyan accent, Bricolage Grotesque display
+type in sentence case, and a reusable component kit in `components/ui/`.
+Icons are Lucide (`lucide-react`). Motion respects `prefers-reduced-motion`.
 
 ---
 
